@@ -11,7 +11,11 @@ terraform {
 
 }
 
-resource "aws_s3_bucket" "obi-test-bucket" {
-  bucket_prefix = regex("[a-z0-9.-]+", "-obi-app")
-  force_destroy = true
+provider "aws" {
+  region  = "eu-central-1"
+}
+
+resource "aws_instance" "example" {
+  ami  = "ami-00060fac2f8c42d30"
+  instance_type = "t2.micro"
 }
