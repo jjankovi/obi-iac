@@ -1,5 +1,4 @@
 resource "kubernetes_deployment" "app" {
-  count = var.delete ? 0 : 1
   metadata {
     name      = var.project_name
     namespace = var.k8s_namespace
