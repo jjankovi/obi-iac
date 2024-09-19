@@ -9,7 +9,7 @@
 #}
 
 locals {
-  subnet_ids = ["subnet-02c075fa48f375e4e", "subnet-0be93e0cea0a84244", "subnet-06bcea42c2d25341e"]
+  subnet_ids = ["subnet-05817cc08c4c95490"]
 }
 
 resource "aws_eks_cluster" "eks_cluster" {
@@ -36,7 +36,8 @@ resource "aws_eks_fargate_profile" "fargate_profile" {
   }
 }
 
-resource "aws_eks_addon" "alb_ingress" {
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  addon_name   = "alb-ingress-controller"
-}
+# TODO JJA asi sa uz nepouziva
+#resource "aws_eks_addon" "alb_ingress" {
+#  cluster_name = aws_eks_cluster.eks_cluster.name
+#  addon_name   = "alb-ingress-controller"
+#}
