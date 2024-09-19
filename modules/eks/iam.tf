@@ -40,19 +40,10 @@ resource "aws_iam_role_policy_attachment" "eks_fargate_policy_attachment" {
   role       = aws_iam_role.eks_fargate_role.name
 }
 
-# EKS admin user
-resource "kubernetes_config_map" "aws_auth" {
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapUsers = <<EOF
-- userarn: arn:aws:iam::396608792866:user/WorkloadAdministrator
-  username: WorkloadAdministrator
-  groups:
-    - system:masters
-EOF
-  }
-}
+# TODO JJA access entry
+#resource "aws_eks_access_entry" "example" {
+#  cluster_name      = aws_eks_cluster.eks_cluster.name
+#  principal_arn     = "arn:aws:iam::396608792866:user/WorkloadAdministrator"
+#  kubernetes_groups = ["group-1", "group-2"]
+#  type              = "STANDARD"
+#}

@@ -66,16 +66,17 @@ resource "kubernetes_service" "app_service" {
 
 resource "kubernetes_ingress_v1" "app_ingress" {
   metadata {
-    name      = "${var.project_name}-ingress"
-    namespace = var.k8s_namespace
+    name        = "${var.project_name}-ingress"
+    namespace   = var.k8s_namespace
     annotations = {
-      "kubernetes.io/ingress.class"                         = "alb"
-      "alb.ingress.kubernetes.io/scheme"                    = "internet-facing"
-      "alb.ingress.kubernetes.io/target-type"               = "ip"
-      "alb.ingress.kubernetes.io/load-balancer-attributes"  = "deletion_protection.enabled=true"
-      "alb.ingress.kubernetes.io/subnets"                   = "subnet-02c075fa48f375e4e,subnet-0be93e0cea0a84244,subnet-06bcea42c2d25341e"
-      "alb.ingress.kubernetes.io/healthcheck-path"          = "/"
-    }  }
+      "kubernetes.io/ingress.class"                        = "alb"
+      "alb.ingress.kubernetes.io/scheme"                   = "internet-facing"
+      "alb.ingress.kubernetes.io/target-type"              = "ip"
+      "alb.ingress.kubernetes.io/load-balancer-attributes" = "deletion_protection.enabled=true"
+      "alb.ingress.kubernetes.io/subnets"                  = "subnet-02c075fa48f375e4e,subnet-0be93e0cea0a84244,subnet-06bcea42c2d25341e"
+      "alb.ingress.kubernetes.io/healthcheck-path"         = "/"
+    }
+  }
   spec {
     rule {
       http {
