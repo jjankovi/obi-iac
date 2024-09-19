@@ -28,7 +28,7 @@ resource "aws_iam_role" "eks_fargate_role" {
     Statement = [{
       Action = "sts:AssumeRole"
       Principal = {
-        Service = "eks-fargate.amazonaws.com"
+        Service = "eks-fargate-pods.amazonaws.com"
       }
       Effect = "Allow"
     }]
