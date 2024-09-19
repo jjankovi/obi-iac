@@ -22,6 +22,12 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 }
 
+resource "kubernetes_namespace" "eks_namespace" {
+  metadata {
+    name = var.k8s_namespace
+  }
+}
+
 resource "aws_eks_fargate_profile" "fargate_profile" {
   cluster_name = aws_eks_cluster.eks_cluster.name
   fargate_profile_name = "${var.project_name}-fargate-profile"
