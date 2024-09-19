@@ -39,3 +39,20 @@ resource "aws_iam_role_policy_attachment" "eks_fargate_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
   role       = aws_iam_role.eks_fargate_role.name
 }
+
+# EKS admin user
+resource "kubernetes_config_map" "aws_auth" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+
+  data = {
+    mapUsers = <<EOF
+- userarn: arn:aws:iam::396608792866:user/WorkloadAdministrator
+  username: eks-user
+  groups:
+    - system:masters
+EOF
+  }
+}
