@@ -3,6 +3,11 @@ variable "enviroment" {
   type        = string
 }
 
+variable "delete" {
+  description = "Should be deleted"
+  type        = bool
+}
+
 variable "project_name" {
   description = "Unique name for this project"
   type        = string

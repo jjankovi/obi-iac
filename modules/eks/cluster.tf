@@ -13,6 +13,7 @@ locals {
 }
 
 resource "aws_eks_cluster" "eks_cluster" {
+  count = var.delete ? 0 : 1
   name     = "${var.project_name}-${var.enviroment}-cluster"
   role_arn = aws_iam_role.eks_cluster_role.arn
 
@@ -23,12 +24,14 @@ resource "aws_eks_cluster" "eks_cluster" {
 }
 
 resource "kubernetes_namespace" "eks_namespace" {
+  count = var.delete ? 0 : 1
   metadata {
     name = var.k8s_namespace
   }
 }
 
 resource "aws_eks_fargate_profile" "fargate_profile" {
+  count = var.delete ? 0 : 1
   cluster_name = aws_eks_cluster.eks_cluster.name
   fargate_profile_name = "${var.project_name}-fargate-profile"
 
