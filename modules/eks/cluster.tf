@@ -9,7 +9,7 @@
 #}
 
 locals {
-  subnet_ids = ["subnet-0dd23e7d3721f282a", "subnet-023be89ffd730a525", "subnet-098a3d68ae40c62f6"]
+  subnet_ids = ["subnet-02c075fa48f375e4e", "subnet-0be93e0cea0a84244", "subnet-06bcea42c2d25341e"]
 }
 
 resource "aws_eks_cluster" "eks_cluster" {
