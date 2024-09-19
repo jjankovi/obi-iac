@@ -64,23 +64,31 @@ resource "kubernetes_service" "app_service" {
   }
 }
 
-resource "kubernetes_ingress" "app_ingress" {
+resource "kubernetes_ingress_v1" "app_ingress" {
   metadata {
     name      = "${var.project_name}-ingress"
     namespace = var.k8s_namespace
     annotations = {
-      "kubernetes.io/ingress.class" = "alb"
-      "alb.ingress.kubernetes.io/scheme" = "internet-facing"
-    }
-  }
+      "kubernetes.io/ingress.class"                         = "alb"
+      "alb.ingress.kubernetes.io/scheme"                    = "internet-facing"
+      "alb.ingress.kubernetes.io/target-type"               = "ip"
+      "alb.ingress.kubernetes.io/listen-ports"              = `[{"HTTP":80}]`
+      "alb.ingress.kubernetes.io/load-balancer-attributes"  = "deletion_protection.enabled=true"
+      "alb.ingress.kubernetes.io/subnets"                   = "subnet-02c075fa48f375e4e,subnet-0be93e0cea0a84244,subnet-06bcea42c2d25341e"
+      "alb.ingress.kubernetes.io/healthcheck-path"          = "/"
+    }  }
   spec {
     rule {
       http {
         path {
-          path     = "/*"
+          path = "/*"
           backend {
-            service_name = kubernetes_service.app_service.metadata[0].name
-            service_port = var.k8s_app_port
+            service {
+              name = kubernetes_service.app_service.metadata[0].name
+              port {
+                number = var.k8s_app_port
+              }
+            }
           }
         }
       }

@@ -50,7 +50,7 @@ resource "kubernetes_config_map" "aws_auth" {
   data = {
     mapUsers = <<EOF
 - userarn: arn:aws:iam::396608792866:user/WorkloadAdministrator
-  username: eks-user
+  username: WorkloadAdministrator
   groups:
     - system:masters
 EOF
